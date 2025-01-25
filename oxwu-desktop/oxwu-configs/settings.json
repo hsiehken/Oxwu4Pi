@@ -1,0 +1,27 @@
+{
+    "warning":{
+       "townID":6400500,
+       "alertIntensity":2,
+       "applySiteEffect":true,
+       "popupWindow":true,
+       "popupNotification":false,
+       "playSound":true,
+       "alwaysOnTop":true,
+       "showPWave":true,
+       "smoothWave":false,
+       "defaultSound":"0",
+       "customSound":null
+    },
+    "report":{
+       "popupWindow":true,
+       "popupNotification":false,
+       "playSound":false,
+       "showIntensity":true,
+       "customSound":null
+    },
+    "autorun":false,
+    "autoDownload":false,
+    "connectPath":null,
+    "connectOnce":false,
+    "scale":1
+ }

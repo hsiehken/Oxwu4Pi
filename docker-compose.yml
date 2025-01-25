@@ -1,0 +1,12 @@
+services:
+  oxwu:
+    build:
+      context: oxwu-desktop
+    restart: always
+    ports:
+      - 6901:6901
+    devices:
+      - /dev/snd
+    shm_size: 512m
+    environment:
+      VNC_PW: VNC_PW # TODO: Change this!

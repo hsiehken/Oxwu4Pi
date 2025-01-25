@@ -1,0 +1,52 @@
+ARG DESKTOP_VERSION=1.16.1
+FROM kasmweb/core-ubuntu-focal:${DESKTOP_VERSION}
+USER root
+
+ENV HOME /home/kasm-default-profile
+ENV STARTUPDIR /dockerstartup
+ENV INST_SCRIPTS $STARTUPDIR/install
+ENV USER_NAME oxwu-announcer
+WORKDIR $HOME
+
+######### Customize Container Here ###########
+
+RUN apt-get update \
+    && apt-get install -y sudo \
+    && echo "${USER_NAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
+    && rm -rf /var/lib/apt/list/*
+
+# Prepare Oxwu
+# install appimage launcher add-apt-repository ppa:appimagelauncher-team/stable && appimagelauncher
+RUN  dpkg --add-architecture armhf && \
+    apt-get update && apt-get install -y libglib2.0-0:armhf libnss3:armhf libatk-bridge2.0-0:armhf \
+        libcups2:armhf libgtk-3-0:armhf libgbm1:armhf libasound2:armhf && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Workaround to fix libz not found issue
+RUN ln /usr/lib/arm-linux-gnueabihf/libz.so.1 /usr/lib/arm-linux-gnueabihf/libz.so
+
+WORKDIR /app/
+
+RUN wget https://eew.earthquake.tw/releases/linux/armv7l/oxwu-linux-armv7l.AppImage -O oxwu.AppImage && \
+    chmod +x oxwu.AppImage && \
+    chown -R 1000 /app/
+
+COPY custom_startup.sh $STARTUPDIR/custom_startup.sh
+RUN chmod +x $STARTUPDIR/custom_startup.sh
+
+ENV TZ Asia/Taipei
+######### End Customizations ###########
+
+RUN chown 1000:0 $HOME
+RUN $STARTUPDIR/set_user_permission.sh $HOME
+
+ENV HOME /home/${USER_NAME}
+WORKDIR $HOME
+
+RUN mkdir -p $HOME && chown -R 1000:0 $HOME
+
+######### Start OXWU Customizations ###########
+# root: since we would like to start with root user otherwise we have to deal with 
+# audio permission stuffs
+COPY oxwu-configs/ $HOME/.config/oxwu/
+######### End OXWU Customizations ###########
