@@ -1,5 +1,5 @@
 # What is this for
-A minimal OXWU Docker image ready to run on Raspberry Pi with 64-bit CPU & 64-bit operating system (e.g., Pi 4 with Ubuntu).
+A minimal OXWU Docker image ready to run on Raspberry Pi with 64-bit CPU & 64-bit operating system (e.g., Pi 4 with Ubuntu) under **headless mode** (i.e., without display, keyboard & mouse).
 
 # How to
 1. Update settings under `oxwu-desktop/oxwu-configs/settings.json`, especially `townID`.
@@ -11,4 +11,4 @@ A minimal OXWU Docker image ready to run on Raspberry Pi with 64-bit CPU & 64-bi
    - The other method to discover your `townID`, please refer [https://hub.docker.com/r/jscat/oxwu](https://hub.docker.com/r/jscat/oxwu).
 2. Update field `VNC_PW` in `docker-compose.yml`.
 3. `sudo docker compose build && sudo docker compose up -d`
-4. Naigate with a webb-browser to <IP>:6901 with username=`kasm_user` passward=`<password set in step 2>`
+4. Naigate with a webb-browser to `<IP>:6901` with username=`kasm_user` passward=`<password set in step 2>`

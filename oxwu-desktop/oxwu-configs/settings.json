@@ -1,7 +1,7 @@
 {
     "warning":{
        "townID":6400500,
-       "alertIntensity":2,
+       "alertIntensity":3,
        "applySiteEffect":true,
        "popupWindow":true,
        "popupNotification":false,
